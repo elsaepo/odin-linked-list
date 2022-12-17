@@ -1,25 +1,23 @@
 class Node {
-    constructor() {
-        value: null;
-        next: null
+    constructor(value = null) {
+        this.value = value;
+        this.next = null;
     }
 }
 
 class LinkedList {
     constructor() {
-        head: null;
-        tail: null;
+        this.head = null;
+        this.tail = null;
     }
     append(value) {
-        const newNode = new Node();
-        newNode.value = value;
+        const newNode = new Node(value);
         if (this.tail) this.tail.next = newNode;
         if (!this.head) this.head = newNode;
         this.tail = newNode;
     }
     prepend(value) {
-        const newNode = new Node();
-        newNode.value = value;
+        const newNode = new Node(value);
         if (this.head) newNode.next = this.head;
         if (!this.tail) this.tail = newNode;
         this.head = newNode;
@@ -35,6 +33,7 @@ class LinkedList {
         return size;
     }
     at(index){
+        if (index < 0) return null;
         let currentIndex = 0;
         let current = this.head;
         while (currentIndex !== index){
@@ -61,6 +60,35 @@ class LinkedList {
         current.next = null;
         return value;
     }
+    insertAt(index, value){
+        if (index === 0) return this.prepend(value);
+        let previousNode = this.at(index-1);
+        if (!previousNode) return null;
+        let newNode = new Node(value);
+        newNode.next = previousNode.next;
+        previousNode.next = newNode;
+        if (this.tail === previousNode) this.tail = newNode;
+    }
+    deleteAt(index){
+        if (index < 0) return null;
+        let deletedNode = this.at(index);
+        if (!deletedNode) return null;
+        if (this.head === deletedNode){
+            if (deletedNode.next){
+                this.head = deletedNode.next;
+                deletedNode.next = null;
+            } else {
+                this.head === null;
+                this.tail === null;
+            }
+            return deletedNode;
+        }
+        let previousNode = this.at(index-1);
+        previousNode.next = deletedNode.next;
+        if (!previousNode.next) this.tail = previousNode;
+        deletedNode.next = null;
+        return deletedNode;
+    }
     contains(value) {
         let current = this.head;
         while(current){
@@ -82,7 +110,6 @@ class LinkedList {
     toString() {
         function getString(node) {
             if (!node) return `null`;
-            console.log(node)
             return `( ${node.value} ) -> ` + getString(node.next);
         }
         return getString(this.head);

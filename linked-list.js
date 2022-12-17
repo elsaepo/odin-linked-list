@@ -26,15 +26,30 @@ class LinkedList {
     }
     size = function () {
         if (!this.head) return 0;
-        function getSize(node) {
-            if (!node.next) return 1;
-            else return 1 + getSize(node.next);
+        let current = this.head;
+        let size = 1;
+        while (current.next){
+            size++;
+            current = current.next;
         }
-        return getSize(this.head);
+        return size;
     }
     pop = function () {
         if (!this.tail) return null;
-        // let last
+        let current = this.head;
+        if (this.head === this.tail){
+            let value = this.head.value;
+            this.head = null;
+            this.tail = null;
+            return value;
+        }
+        while (current.next.next){
+            current = current.next
+        }
+        let value = current.next.value;
+        this.tail = current;
+        current.next = null;
+        return value;
     }
     toString = function () {
         function getString(node) {

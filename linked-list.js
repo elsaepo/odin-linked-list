@@ -32,6 +32,7 @@ class LinkedList {
         }
         return size;
     }
+    // Loops through the list and returns the Node when the index is reached
     at(index){
         if (index < 0) return null;
         let currentIndex = 0;
@@ -43,6 +44,7 @@ class LinkedList {
         }
         return current;
     }
+    // Loops through the list and removes the last Node, returning it, 
     pop() {
         if (!this.tail) return null;
         let current = this.head;
@@ -69,6 +71,7 @@ class LinkedList {
         previousNode.next = newNode;
         if (this.tail === previousNode) this.tail = newNode;
     }
+    // Deletes the Node at the given index and returns it. Lots of checks around the start/end of the list
     deleteAt(index){
         if (index < 0) return null;
         let deletedNode = this.at(index);
@@ -89,6 +92,7 @@ class LinkedList {
         deletedNode.next = null;
         return deletedNode;
     }
+    // Returns true or false whether a given value is in the list
     contains(value) {
         let current = this.head;
         while(current){
@@ -97,6 +101,7 @@ class LinkedList {
         }
         return false;
     }
+    // Finds a value within the list and returns the index, or null if not found
     find(value) {
         let index = 0;
         let current = this.head;

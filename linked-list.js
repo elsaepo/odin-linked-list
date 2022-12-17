@@ -24,7 +24,7 @@ class LinkedList {
         if (!this.tail) this.tail = newNode;
         this.head = newNode;
     }
-    size = function () {
+    size() {
         if (!this.head) return 0;
         let current = this.head;
         let size = 1;
@@ -34,7 +34,17 @@ class LinkedList {
         }
         return size;
     }
-    pop = function () {
+    at(index){
+        let currentIndex = 0;
+        let current = this.head;
+        while (currentIndex !== index){
+            if (!current.next) return null;
+            current = current.next;
+            currentIndex++;
+        }
+        return current;
+    }
+    pop() {
         if (!this.tail) return null;
         let current = this.head;
         if (this.head === this.tail){
@@ -51,7 +61,25 @@ class LinkedList {
         current.next = null;
         return value;
     }
-    toString = function () {
+    contains(value) {
+        let current = this.head;
+        while(current){
+            if (current.value === value) return true;
+            current = current.next;
+        }
+        return false;
+    }
+    find(value) {
+        let index = 0;
+        let current = this.head;
+        while(current){
+            if (current.value === value) return index;
+            current = current.next;
+            index++;
+        }
+        return null;
+    }
+    toString() {
         function getString(node) {
             if (!node) return `null`;
             console.log(node)
